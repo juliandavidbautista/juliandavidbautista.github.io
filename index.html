@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Julián David Bautista Martínez | Mechanical Engineering</title>
+<link rel="stylesheet" href="portfolio.css"></head><body id="top">
+<header class="wrap bar"><a class="brand" href="#top">Mechanical Engineering</a><nav aria-label="Main navigation"><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#skills">Skills</a><a href="#contact">Contact</a></nav><label class="palette">Palette <select id="palette"><option value="copper">Workshop Copper</option><option value="blue">Blueprint Blue</option><option value="teal">Glacier Teal</option></select></label></header>
+<main><div class="wrap hero"><div><div class="eyebrow">Medellín, Colombia</div><h1><span>Julián David</span><span>Bautista Martínez</span></h1><p class="intro">I study mechanical engineering at Universidad EAFIT. With Kratos Formula SAE, I design vehicle parts in SolidWorks and help make them in the workshop. I’m especially interested in energy and automation.</p><div class="actions"><a class="primary" href="#projects">Explore projects</a><a href="#experience">My experience</a></div></div>
+<figure class="portrait"><div class="frame"><canvas data-art="portrait" aria-hidden="true"></canvas><img id="photo" hidden alt="Portrait of Julián David Bautista Martínez"></div><figcaption><span id="status" aria-live="polite">Portrait preview</span><label class="pick">Choose photo<input type="file" id="upload" accept="image/*" aria-label="Choose a local portrait for this preview"></label></figcaption></figure></div>
+<div class="paper"><div class="ruler"></div><section id="projects" class="wrap section"><div class="eyebrow">Project archive</div><h2>Selected work</h2><div class="filters" aria-label="Project filters"><button aria-pressed="true" data-filter="all">All work</button><button aria-pressed="false" data-filter="motorsport">Motorsport</button><button aria-pressed="false" data-filter="machines">Machines</button><button aria-pressed="false" data-filter="materials">Materials</button></div>
+<div class="cards"><article class="card" data-group="motorsport"><canvas class="drawing" data-art="wheel" aria-hidden="true"></canvas><span class="meta">Motorsport / Design &amp; manufacture</span><h3>Kratos Formula SAE</h3><p>I work on the chassis within the Design &amp; Manufacturing subsystem, from SolidWorks models to the workshop.</p><a href="#kratos">My role on the team</a></article>
+<article class="card" data-group="machines"><a href="pump.html"><div class="pump-cover"><div class="bench-photo"><img src="project-media/pump-test.jpg" alt="The pump at rest in its reservoir beside the collection jug"></div></div></a><span class="meta">Fluid mechanics / Prototype testing</span><h3>Submerged impeller pump</h3><p>What limits the lift of a battery-powered pump? We built the impeller, measured its flow and traced the losses back to the drive.</p><a href="pump.html">Explore the pump</a></article>
+<article class="card" data-group="machines"><a href="router.html"><img class="router" src="project-media/router-front.jpg" alt="The assembled five-bar router with the moving table below the spindle"></a><span class="meta">Mechanisms / Motion analysis</span><h3>Five-bar CNC router</h3><p>Two carriages on parallel rails move one table in two directions. Follow the linkage through a 50 mm square.</p><a href="router.html">Explore the router</a></article>
+<article class="card" data-group="materials"><a href="coatings.html"><img src="project-media/hvof-rotors.jpg" alt="Workshop photos of the worn rotor and its replacement from our poster"></a><span class="meta">Surface engineering / Field study</span><h3>Carbide coatings for pump shafts</h3><p>We compared two hydrogen-HVOF coatings after a visit to EPM’s workshop in Medellín.</p><a href="coatings.html">Read the coating study</a></article></div></section></div>
+<section id="experience" class="wrap section profile"><div><div class="eyebrow">Experience &amp; education</div><h2>In the workshop<br>and the lab.</h2></div><div><article class="bio" id="kratos"><div class="meta">Aug 2026 — present</div><h3>Design &amp; Manufacturing<br>Kratos Formula SAE</h3><p>I work on the chassis within the Design &amp; Manufacturing subsystem. I model parts, weld, turn components on the lathe, bend material and 3D print. I coordinate with the other subsystems so the parts meet the vehicle’s requirements.</p></article><article class="bio"><div class="meta">Universidad EAFIT</div><h3>Mechanical Engineering</h3><p>I hold the Talento EAFIT scholarship, awarded in January 2025 for academic performance. Alongside Kratos, I take part in a research project on thermal spraying.</p></article></div></section>
+<div class="skillarea"><section id="skills" class="wrap section"><div class="eyebrow">Tools &amp; practice</div><h2>Skills</h2><div class="skillgrid"><div><h3>Design &amp; analysis</h3><div class="tags"><span>SolidWorks</span><span>MATLAB</span><span>Excel</span></div></div><div><h3>Workshop</h3><div class="tags"><span>Welding</span><span>Turning</span><span>Bending</span><span>3D printing</span><span>Metrology</span></div></div><div><h3>Collaboration</h3><div class="tags"><span>Teamwork</span><span>Subsystem coordination</span><span>English · B2</span></div></div></div></section></div></main>
+<footer class="wrap foot" id="contact"><div class="eyebrow">Contact</div><b>Julián David Bautista Martínez</b><a href="mailto:jdbautism1@eafit.edu.co">Email me</a></footer>
+<script src="palette.js"></script>
+<script>
+const filters = document.querySelectorAll('[data-filter]');
+for (const button of filters) {
+  button.onclick = () => {
+    for (const option of filters) option.setAttribute('aria-pressed', String(option === button));
+    for (const card of document.querySelectorAll('[data-group]')) card.hidden = button.dataset.filter !== 'all' && card.dataset.group !== button.dataset.filter;
+  };
+}
+let photoUrl;
+document.querySelector('#upload').onchange = event => {
+  const file = event.target.files[0];
+  if (!file) return;
+  const photo = document.querySelector('#photo');
+  if (photoUrl) URL.revokeObjectURL(photoUrl);
+  photoUrl = URL.createObjectURL(file);
+  photo.onload = () => { photo.hidden = false; document.querySelector('#status').textContent = 'Local photo preview'; };
+  photo.onerror = () => { photo.hidden = true; document.querySelector('#status').textContent = 'Try a JPG or PNG'; };
+  photo.src = photoUrl;
+};
+function render(canvas) {
+  const w = canvas.clientWidth, h = canvas.clientHeight;
+  if (!w || !h) return;
+  const ratio = Math.min(devicePixelRatio,2);
+  canvas.width = w * ratio; canvas.height = h * ratio;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(ratio, ratio);
+  const art = canvas.dataset.art;
+  const colors = {portrait:['#28352e','#b0c1a0'],wheel:['#303d35','#d3d7b9'],pump:['#bc6140','#ffdab1'],router:['#37444c','#bad2d3']};
+  const theme = themes[palette.value];
+  const [ground,stroke] = theme ? (art === "pump" ? [theme[4],theme[1]] : [theme[3],art === "router" ? theme[1] : theme[2]]) : colors[art];
+  ctx.fillStyle=ground;ctx.fillRect(0,0,w,h);ctx.strokeStyle=stroke;
+  ctx.translate(w/2,h/2);const scale = art==='portrait'?Math.max(w/330,h/360):Math.min(w/300,h/154);ctx.scale(scale,scale);
+  function line(points){ctx.beginPath();points.forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y));ctx.stroke();}
+  if(art==='portrait'){
+    for(let n=0;n<80;n++){
+      const points=[];for(let y=-270;y<=270;y+=3){
+        const bend=49*Math.sin(y/88+n*.017)+27*Math.cos(y/44+n*.025);
+        points.push([-260+n*6.3+bend,y]);
+      }
+      ctx.globalAlpha=.26+.4*(1+Math.sin(n*.15))/2;line(points);
+    }
+    ctx.globalAlpha=1;ctx.strokeStyle=theme ? theme[2] : '#ffae76';ctx.lineWidth=2;
+    for(const x of [-1,1])for(const y of [-1,1])line([[x*90,y*96],[x*106,y*96],[x*106,y*80]]);
+    return;
+  }
+  ctx.globalAlpha=.17;for(let x=-220;x<=220;x+=12)line([[x,-120],[x,120]]);
+  for(let y=-120;y<120;y+=12)line([[-220,y],[220,y]]);
+  ctx.globalAlpha=1;ctx.lineWidth=1.5;
+  if(art==='router'){
+    for(let i=0;i<9;i++)line([[-100+i*12,40+i*3],[-42+i*12,12+i*3]]);
+    line([[-102,40],[0,66],[91,25],[-10,0],[-102,40]]);
+    for(let d of [0,6])line([[-68+d,26],[-68+d,-40],[46+d,-11],[46+d,43]]);
+    line([[-13,-28],[-13,-2],[-5,9],[2,-1],[2,-24]]);return;
+  }
+  ctx.rotate(-.18);ctx.scale(1,.77);
+  for(let r of [12,22,65,69,75]){ctx.beginPath();ctx.arc(0,0,r,0,2*Math.PI);ctx.stroke();}
+  for(let i=0;i<10;i++){ctx.rotate(Math.PI/5);ctx.beginPath();ctx.moveTo(21,0);if(art==='pump')ctx.bezierCurveTo(33,-15,61,-15,65,3);else ctx.lineTo(59,25);ctx.stroke();}
+}
+const observer=new ResizeObserver(entries=>entries.forEach(entry=>render(entry.target)));
+document.querySelectorAll('canvas').forEach(canvas=>observer.observe(canvas));
+applyPalette();
+</script></body></html>
+
